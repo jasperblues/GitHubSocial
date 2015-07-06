@@ -72,5 +72,6 @@ public class GitHubSocialChecker : NSObject {
 
 }
 
+//TODO: Add cmd-line args
 var checker = GitHubSocialChecker(userName: "jasperblues")
 checker.check()
