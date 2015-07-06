@@ -80,7 +80,6 @@ if (arguments.count != 2) {
 }
 
 var checker = GitHubSocialChecker(userName: arguments[1])
-checker.check()
 
 
 
