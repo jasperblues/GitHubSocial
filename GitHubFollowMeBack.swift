@@ -17,15 +17,17 @@ public class GitHubSocialChecker : NSObject {
         let following = self.collectFromEndpoint("following")
         
         println("<========================================================")
-        println("Not following me back");
+        println(NSString(format: "Follower stats for: %@", self.userName))
         println("<========================================================")
+        println("Following, but not followed by:");
         self.withCollection(following, reportMissingFrom: followers)
+        println("<end of report>")
 
         println("");
-        println("<========================================================")
-        println("I'm not following back");
+        println("Followed by, but not following:");
         println("<========================================================")
         self.withCollection(followers, reportMissingFrom: following)
+        println("<end of report>")
     
     }
     
@@ -72,5 +74,14 @@ public class GitHubSocialChecker : NSObject {
 
 }
 
-var checker = GitHubSocialChecker(userName: "jasperblues")
+let arguments : Array<String> = Process.arguments;
+if (arguments.count != 2) {
+    println("Usage: ./GitHubFollowMeBack.swift <userName>")
+}
+
+var checker = GitHubSocialChecker(userName: arguments[1])
 checker.check()
+
+
+
+
