@@ -16,4 +16,6 @@ curl -SSL https://raw.githubusercontent.com/jasperblues/GitHubFollowMeBack/maste
 ./GitHubFollowMeBack.swift <userName>
 ```
 
+*NB:* GitHub rate limits unauthenticated users (eg this script) to x requests per hour. 
+
 
