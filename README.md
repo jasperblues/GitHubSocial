@@ -8,7 +8,8 @@ Its nice to be able to follow back your followers on GitHub. This script reports
 # Installation
 
 ```sh
-curl -SSL https://raw.githubusercontent.com/jasperblues/GitHubFollowMeBack/master/GitHubFollowMeBack.swift > GitHubFollowMeBack.swift && chmod +x ./GitHubFollowMeBack.swift
+curl -SSL https://raw.githubusercontent.com/jasperblues/GitHubFollowMeBack/master/GitHubFollowMeBack.swift \
+> GitHubFollowMeBack.swift && chmod +x ./GitHubFollowMeBack.swift
 ```
 
 # Usage
