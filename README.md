@@ -1,4 +1,4 @@
-# GitHubFollowMeBack
+# GitHubSocial
 
 Its nice to be able to follow back your followers on GitHub. This script reports:
 
