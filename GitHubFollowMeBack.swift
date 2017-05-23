@@ -4,9 +4,9 @@ import Foundation
 
 import Foundation
 
-public class GitHubSocialChecker : NSObject {
+open class GitHubSocialChecker : NSObject {
     
-    private var userName : String!
+    fileprivate var userName : String!
     
     public init(userName : String!) {
         self.userName = userName
@@ -14,7 +14,7 @@ public class GitHubSocialChecker : NSObject {
     }
     
     
-    public func check() {
+    open func check() {
         let followers = self.collectFromEndpoint("followers")
         let following = self.collectFromEndpoint("following")
         
@@ -34,7 +34,7 @@ public class GitHubSocialChecker : NSObject {
     }
     
     
-    private func collectFromEndpoint(endpoint : String) -> Array<String> {
+    fileprivate func collectFromEndpoint(_ endpoint : String) -> Array<String> {
         
         var collection : Array<String> = []
         
@@ -43,14 +43,14 @@ public class GitHubSocialChecker : NSObject {
         while (true) {
             let urlString : String! = NSString(format: "https://api.github.com/users/%@/%@?per_page=100&page=%i",
                 self.userName, endpoint, page) as String
-            let url = NSURL(string: urlString)!
+            let url = URL(string: urlString)!
             
-            let data = NSData(contentsOfURL: url)!
+            let data = try! Data(contentsOf: url)
             
             
             
             do {
-                let results = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as! Array<Dictionary<String, AnyObject>>
+                let results = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as! Array<Dictionary<String, AnyObject>>
                 
                 if (results.count == 0) {
                     break;
@@ -60,7 +60,7 @@ public class GitHubSocialChecker : NSObject {
                     collection.append(login)
                     
                 }
-                page++
+                page += 1
                 
                 
             } catch let error as NSError {
@@ -75,7 +75,7 @@ public class GitHubSocialChecker : NSObject {
         
     }
     
-    private func withCollection(collection : Array<String>, reportMissingFrom other : Array<String>) -> Void {
+    fileprivate func withCollection(_ collection : Array<String>, reportMissingFrom other : Array<String>) -> Void {
         
         for userName in collection {
             if other.filter({$0 == userName}).count == 0 {
@@ -86,7 +86,7 @@ public class GitHubSocialChecker : NSObject {
     
 }
 
-let arguments : Array<String> = Process.arguments;
+let arguments : Array<String> = CommandLine.arguments;
 if (arguments.count != 2) {
     print("Usage: ./GitHubFollowMeBack.swift <userName>")
 }
